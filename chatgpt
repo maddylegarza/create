@@ -1,0 +1,64 @@
+class DecisionMakingAssistant:
+    def __init__(self):
+        self.options = []
+        self.criteria = []
+    
+    def add_option(self, option):
+        """Adds an option to choose from."""
+        self.options.append(option)
+    
+    def add_criteria(self, criteria):
+        """Adds a criteria for evaluation."""
+        self.criteria.append(criteria)
+    
+    def evaluate_criteria(self, option):
+        """Evaluate the option based on user input."""
+        print(f"\nEvaluating option: {option}")
+        scores = []
+        for criterion in self.criteria:
+            score = input(f"On a scale of 1-5, how well does '{option}' meet the criterion: '{criterion}'? ")
+            while not score.isdigit() or not (1 <= int(score) <= 5):
+                score = input(f"Invalid input. Please enter a number between 1 and 5 for criterion: '{criterion}': ")
+            scores.append(int(score))
+        return sum(scores)
+
+    def make_decision(self):
+        """Asks the user to evaluate each option and make a decision."""
+        if not self.options or not self.criteria:
+            print("No options or criteria available for evaluation.")
+            return
+        
+        print("Please evaluate each option based on the criteria.")
+        option_scores = {}
+        
+        # Evaluate each option
+        for option in self.options:
+            score = self.evaluate_criteria(option)
+            option_scores[option] = score
+        
+        # Sort options by score
+        sorted_options = sorted(option_scores.items(), key=lambda x: x[1], reverse=True)
+        
+        print("\nDecision Results:")
+        for option, score in sorted_options:
+            print(f"Option: {option}, Score: {score}")
+        
+        print(f"\nThe best option is: {sorted_options[0][0]} with a score of {sorted_options[0][1]}.")
+
+
+if __name__ == "__main__":
+    # Initialize the decision-making assistant
+    assistant = DecisionMakingAssistant()
+
+    # Add options to evaluate
+    assistant.add_option("Option A")
+    assistant.add_option("Option B")
+    assistant.add_option("Option C")
+
+    # Add criteria for evaluation
+    assistant.add_criteria("Cost")
+    assistant.add_criteria("Ease of Implementation")
+    assistant.add_criteria("Long-term Benefit")
+
+    # Make the decision
+    assistant.make_decision()
