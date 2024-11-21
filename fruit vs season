@@ -1,0 +1,48 @@
+# decision_making_fruit.py
+
+import datetime
+
+class FruitDecisionMaker:
+    def __init__(self):
+        self.fruit_seasons = {
+            'spring': ['Strawberries', 'Cherries', 'Pineapple', 'Mangoes', 'Rhubarb'],
+            'summer': ['Watermelon', 'Peaches', 'Berries', 'Tomatoes', 'Apricots'],
+            'fall': ['Apples', 'Pears', 'Grapes', 'Pumpkin', 'Figs'],
+            'winter': ['Oranges', 'Grapefruit', 'Pomegranates', 'Kiwis', 'Persimmons']
+        }
+    
+    def get_season(self, month):
+        """Returns the season based on the month."""
+        if 3 <= month <= 5:
+            return 'spring'
+        elif 6 <= month <= 8:
+            return 'summer'
+        elif 9 <= month <= 11:
+            return 'fall'
+        else:
+            return 'winter'
+    
+    def recommend_fruit(self, month):
+        """Recommends fruits based on the month."""
+        season = self.get_season(month)
+        fruits_in_season = self.fruit_seasons.get(season, [])
+        return fruits_in_season
+
+    def display_recommendation(self, month):
+        """Displays fruit recommendation for the given month."""
+        season = self.get_season(month)
+        fruits = self.recommend_fruit(month)
+        print(f"\nIt's {season.capitalize()}!")
+        print(f"Here are some fruits that are in season in {season.capitalize()}:")
+        for fruit in fruits:
+            print(f"- {fruit}")
+
+if __name__ == "__main__":
+    # Create an instance of the FruitDecisionMaker
+    fruit_decision_maker = FruitDecisionMaker()
+    
+    # Get current month
+    current_month = datetime.datetime.now().month
+    
+    # Display the recommended fruits based on the current season
+    fruit_decision_maker.display_recommendation(current_month)
